@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import Sidebar from "./components/sidebar/Sidebar";
+import LoginPage from "./pages/loginpage/LoginPage";
+import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Crate from "./app/crate/Crate";
+import Student from "./app/student/Student";
 
 function App() {
+  const [isSideBarActive, setIsSideBarActive] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (
+      pathname === "/login" ||
+      pathname === "/login/" ||
+      pathname === "/register" ||
+      pathname === "/register/"
+    ) {
+      setIsSideBarActive(false);
+    } else {
+      setIsSideBarActive(true);
+    }
+  }, [pathname, isSideBarActive]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isSideBarActive && <Sidebar />}
+      <div className="content">
+        <Routes>
+          {/* without sidebar */}
+          <Route path="/login" element={<LoginPage />} />
+          {/* with sidebar */}
+          <Route path="/" element={<h1>HOME PAGE</h1>} />
+          <Route path="/crate" element={<Crate />} />
+          <Route path="/student" element={<Student />} />
+        </Routes>
+      </div>
     </div>
   );
 }

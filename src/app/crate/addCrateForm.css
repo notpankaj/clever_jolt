@@ -1,0 +1,76 @@
+/* body {
+  display: grid;
+  place-content: center;
+  width: 100vw;
+  height: 100vh;
+} */
+/* add crate form */
+#add-crate {
+  padding: 50px 80px;
+  width: 500px;
+  height: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 8px;
+  background: rgb(231, 230, 230);
+}
+
+#add-crate h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+#add-crate .input-box,
+#add-crate .input-box select,
+#add-crate .input-box input {
+  width: 100%;
+  flex: 1;
+  margin: 5px 0;
+}
+.input-box input::placeholder {
+  color: #fff;
+}
+#add-crate .input-box select,
+#add-crate .input-box input {
+  background: rgb(148, 146, 146);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  color: #fff;
+}
+#add-crate .input-box.file-input {
+  background: rgb(148, 146, 146);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  color: #fff;
+}
+#add-crate .input-box.file-input > div {
+  width: 200px;
+  margin: 0 70px;
+}
+#add-crate .input-box.file-input input::file-selector-button {
+  display: block;
+  background: #fff;
+}
+#add-crate .submit_btn {
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  font-weight: bold;
+  flex: 1;
+  color: #fff;
+  background: linear-gradient(
+    360deg,
+    rgba(251, 92, 75, 1) 0%,
+    rgba(216, 21, 59, 1) 100%
+  );
+  border-radius: 8px;
+  border: none;
+  font-size: 1.2rem;
+  padding: 20px 20px;
+}
