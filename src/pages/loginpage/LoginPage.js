@@ -1,10 +1,15 @@
 import "./loginpage.css";
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
-const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
-    <>
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
       <header className="header">
         <div className="header__container">
           <div className="header__logo">
@@ -24,26 +29,29 @@ const navigate = useNavigate();
           <div className="login__from__container">
             <form action="" id="login_form">
               <div className="input__box">
-                <label for="">Full Name</label>
+                <label htmlFor="">Full Name</label>
                 <input type="text" placeholder="Enter Name" />
               </div>
               <div className="input__box">
-                <label for="">Password</label>
+                <label htmlFor="">Password</label>
                 <input type="password" placeholder="Enter Password" />
               </div>
               <div className="login__action">
                 <input type="checkbox" placeholder="Enter Password" />
-                <label for="">Remember me</label>
+                <label htmlFor="">Remember me</label>
                 <span className="forgetpass">Forget Password?</span>
               </div>
-              <button onClick={ () => navigate('/') }  className="login__submit-btn">
+              <button
+                onClick={() => navigate("/")}
+                className="login__submit-btn"
+              >
                 Login
               </button>
             </form>
           </div>
         </div>
       </main>
-    </>
+    </div>
   );
 }
 

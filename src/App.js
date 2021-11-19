@@ -28,9 +28,8 @@ function App() {
       {isSideBarActive && <Sidebar />}
       <div className="content">
         <Routes>
-          {/* without sidebar */}
           <Route path="/login" element={<LoginPage />} />
-          {/* with sidebar */}
+          {/* with - sidebar */}
           <Route path="/" element={<h1>HOME PAGE</h1>} />
           <Route path="/crate" element={<Crate />} />
           <Route path="/student" element={<Student />} />

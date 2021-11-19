@@ -1,21 +1,26 @@
 import "./addCrateForm.css";
-function AddCrateForm() {
+function AddCrateForm({ setIsAddFormOpen }) {
+  const handleClose = (e) => {
+    if (e.target.className === "form__container") {
+      setIsAddFormOpen((state) => false);
+    }
+  };
   return (
-    <div>
+    <div className="form__container" onClick={handleClose}>
       <form action="" id="add-crate">
         <h1>ADD CRATE</h1>
-        <div class="input-box file-input">
+        <div className="input-box file-input">
           <div>
-            <input type="file" class="file" />
+            <input type="file" className="file" />
           </div>
         </div>
-        <div class="input-box">
+        <div className="input-box">
           <input type="text" placeholder="Title" />
         </div>
-        <div class="input-box">
+        <div className="input-box">
           <input type="text" placeholder="description" />
         </div>
-        <div class="input-box">
+        <div className="input-box">
           <select name="crate" id="cars">
             <option selected disabled>
               Choose Crate
@@ -25,7 +30,7 @@ function AddCrateForm() {
             <option value="three">Three</option>
           </select>
         </div>
-        <button class="submit_btn" type="submit">
+        <button className="submit_btn" type="submit">
           ADD NEW CRATE
         </button>
       </form>

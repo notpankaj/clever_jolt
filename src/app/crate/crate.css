@@ -1,0 +1,16 @@
+.crate__container {
+  margin: 20px;
+  position: relative;
+}
+/* CRATE HEADER */
+.crate__header {
+  display: flex;
+  justify-content: space-between;
+  /* justify-content: flex-start;
+    gap: 5%; */
+  margin-bottom: 20px;
+}
+.crate__header #button {
+  margin-right: 2%;
+  cursor: pointer;
+}

@@ -123,10 +123,13 @@ select:disabled {
 /* student header */
 .student__container {
   margin: 20px;
+  padding-right: 2%;
 }
 .student__header {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 21px;
 }
 
 .student__sort {
