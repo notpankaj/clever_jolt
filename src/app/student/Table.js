@@ -60,7 +60,12 @@ const data = [
 
 function Table() {
   return (
-    <div>
+    <div
+      style={{
+        maxHeight: "70vh",
+        overflowY: "scroll",
+      }}
+    >
       <table className="student_table">
         <thead>
           <tr>
@@ -89,6 +94,54 @@ function Table() {
           {data &&
             data.map((item, idx) => (
               <tr key={`${item}${idx}`}>
+                <td data-label={tableFiledMap.sNo}>{idx + 1}</td>
+                <td data-label={tableFiledMap.name}>{item.name}</td>
+                <td data-label={tableFiledMap.class}>{item.class}</td>
+                <td data-label={tableFiledMap.age}>{item.age}</td>
+                <td data-label={tableFiledMap.mobile}>{item.MobileNumber}</td>
+                <td data-label={tableFiledMap.addess}>{item.address}</td>
+                <td data-label={tableFiledMap.package}>{item.package}</td>
+              </tr>
+            ))}
+          {data &&
+            data.map((item, idx) => (
+              <tr key={idx}>
+                <td data-label={tableFiledMap.sNo}>{idx + 1}</td>
+                <td data-label={tableFiledMap.name}>{item.name}</td>
+                <td data-label={tableFiledMap.class}>{item.class}</td>
+                <td data-label={tableFiledMap.age}>{item.age}</td>
+                <td data-label={tableFiledMap.mobile}>{item.MobileNumber}</td>
+                <td data-label={tableFiledMap.addess}>{item.address}</td>
+                <td data-label={tableFiledMap.package}>{item.package}</td>
+              </tr>
+            ))}
+          {data &&
+            data.map((item, idx) => (
+              <tr key={idx}>
+                <td data-label={tableFiledMap.sNo}>{idx + 1}</td>
+                <td data-label={tableFiledMap.name}>{item.name}</td>
+                <td data-label={tableFiledMap.class}>{item.class}</td>
+                <td data-label={tableFiledMap.age}>{item.age}</td>
+                <td data-label={tableFiledMap.mobile}>{item.MobileNumber}</td>
+                <td data-label={tableFiledMap.addess}>{item.address}</td>
+                <td data-label={tableFiledMap.package}>{item.package}</td>
+              </tr>
+            ))}
+          {data &&
+            data.map((item, idx) => (
+              <tr key={idx}>
+                <td data-label={tableFiledMap.sNo}>{idx + 1}</td>
+                <td data-label={tableFiledMap.name}>{item.name}</td>
+                <td data-label={tableFiledMap.class}>{item.class}</td>
+                <td data-label={tableFiledMap.age}>{item.age}</td>
+                <td data-label={tableFiledMap.mobile}>{item.MobileNumber}</td>
+                <td data-label={tableFiledMap.addess}>{item.address}</td>
+                <td data-label={tableFiledMap.package}>{item.package}</td>
+              </tr>
+            ))}
+          {data &&
+            data.map((item, idx) => (
+              <tr key={idx}>
                 <td data-label={tableFiledMap.sNo}>{idx + 1}</td>
                 <td data-label={tableFiledMap.name}>{item.name}</td>
                 <td data-label={tableFiledMap.class}>{item.class}</td>

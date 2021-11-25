@@ -46,3 +46,8 @@ body {
   height: 100vh;
   background: #fff;
 }
+@media screen and (max-width: 970px) {
+  .App {
+    flex-direction: column;
+  }
+}

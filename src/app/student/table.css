@@ -4,7 +4,7 @@
   margin: 0 auto;
   padding: 0;
   width: 95%;
-  table-layout: fixed;
+  /* table-layout: fixed; */
 }
 
 .student_table caption {
