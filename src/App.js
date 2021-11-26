@@ -5,6 +5,8 @@ import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import Crate from "./app/crate/Crate";
 import Student from "./app/student/Student";
+import { AuthProvider } from "./hooks/useAuth";
+import Home from "./app/home/Home";
 
 function App() {
   const [isSideBarActive, setIsSideBarActive] = useState(false);
@@ -24,18 +26,20 @@ function App() {
   }, [pathname, isSideBarActive]);
 
   return (
-    <div className="App">
-      {isSideBarActive && <Sidebar />}
-      <div className="content">
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          {/* with - sidebar */}
-          <Route path="/" element={<h1>HOME PAGE</h1>} />
-          <Route path="/crate" element={<Crate />} />
-          <Route path="/student" element={<Student />} />
-        </Routes>
+    <AuthProvider>
+      <div className="App">
+        {isSideBarActive && <Sidebar />}
+        <div className="content">
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            {/* with - sidebar */}
+            <Route path="/" element={<Home />} />
+            <Route path="/crate" element={<Crate />} />
+            <Route path="/student" element={<Student />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </AuthProvider>
   );
 }
 

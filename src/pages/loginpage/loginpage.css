@@ -20,6 +20,10 @@
   color: #fff;
   cursor: pointer;
 }
+.header__logo h3 {
+  color: #fff;
+  margin: 0;
+}
 .header__links {
   font-weight: 500;
   font-size: 1.1rem;
@@ -35,7 +39,7 @@
   ==================*/
 main {
   width: 100vw;
-  height: calc(100vh - 90px);
+  height: calc(100vh - 100px);
   display: flex;
   justify-content: center;
 }
@@ -77,6 +81,14 @@ main {
   color: gray;
   font-size: 1.1rem;
 }
+
+.input__box .error {
+  color: rgb(231, 24, 24);
+  font-weight: 500;
+  font-style: italic;
+  padding: 0 10px;
+}
+
 .login__action {
   padding: 10px;
   position: relative;

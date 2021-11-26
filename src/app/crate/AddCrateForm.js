@@ -21,8 +21,8 @@ function AddCrateForm({ setIsAddFormOpen }) {
           <input type="text" placeholder="description" />
         </div>
         <div className="input-box">
-          <select name="crate" id="cars">
-            <option selected disabled>
+          <select defaultValue={"DEFAULT"} name="crate" id="cars">
+            <option value="DEFAULT" disabled>
               Choose Crate
             </option>
             <option value="one">one</option>

@@ -30,7 +30,10 @@ function Sidebar() {
           <h4>Clever jolt</h4>
         </div>
         <ul className="sidebar__items">
-          <NavLink to="/" className={({ isActive }) => isActive && "active"}>
+          <NavLink
+            to="/"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
             <li className="sidebar__item">
               <div className="sidebar__icon">
                 <box-icon name="home"></box-icon>

@@ -1,0 +1,14 @@
+.home__container {
+  padding: 10px;
+}
+.home__container .welcome {
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background: #cb2d3e; /* fallback for old browsers */
+  background: linear-gradient(to left, #ef473a, #d83345);
+}
+
+.home__main {
+  padding: 10px;
+  min-height: 100vh;
+}

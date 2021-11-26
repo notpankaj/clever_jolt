@@ -79,6 +79,9 @@ select:disabled {
   justify-content: space-between;
   align-items: center;
 }
+#row strong {
+  color: #fff;
+}
 
 /* seacrh box */
 
