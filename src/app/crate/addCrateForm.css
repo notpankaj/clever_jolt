@@ -14,16 +14,16 @@
 #add-crate {
   padding: 50px 80px;
   width: 500px;
-  height: 650px;
+  margin-bottom: 100px;
+  /* height: 650px; */
+  overflow-y: scroll;
   display: inline-flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   border-radius: 8px;
   background: rgb(231, 230, 230);
-  box-shadow: 3px 1px 20px 0px #cecccc;
 }
-
 #add-crate h1 {
   font-size: 1.8rem;
   margin-bottom: 20px;
@@ -48,21 +48,28 @@
   font-size: 1.1rem;
   color: #fff;
 }
-#add-crate .input-box.file-input {
+#add-crate .input-box.file-input-box {
   background: rgb(148, 146, 146);
   border: none;
   border-radius: 8px;
   padding: 10px 20px;
   font-size: 1.1rem;
   color: #fff;
+  position: static;
 }
-#add-crate .input-box.file-input > div {
+#add-crate .input-box.file-input-box > div {
   width: 200px;
   margin: 0 70px;
 }
-#add-crate .input-box.file-input input::file-selector-button {
+#add-crate .input-box.file-input-box input::file-selector-button {
   display: block;
   background: #fff;
+}
+#add-crate .input-box.mui {
+  padding-left: 8px;
+  color: #fff;
+  background: rgb(148, 146, 146);
+  border-radius: 8px;
 }
 #add-crate .submit_btn {
   cursor: pointer;
@@ -80,4 +87,9 @@
   border: none;
   font-size: 1.2rem;
   padding: 20px 20px;
+}
+
+.error {
+  color: red;
+  margin-left: 10px;
 }

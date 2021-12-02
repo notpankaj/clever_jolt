@@ -54,3 +54,7 @@ body {
     flex-direction: column;
   }
 }
+/* scrollbar */
+*::-webkit-scrollbar {
+  width: 0px;
+}
