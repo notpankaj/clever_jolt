@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import "./addCrateForm.css";
+import "./crateForm.css";
 import { Checkbox } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { addCrate } from "./crateSlice/crateSlice";

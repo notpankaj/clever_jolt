@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -6,6 +6,12 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Checkbox from "@mui/material/Checkbox";
 import Avatar from "@mui/material/Avatar";
+
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import EditCrateForm from "./EditCrateForm";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -36,7 +42,7 @@ const rows = [
     is_single_crate: false,
   },
   {
-    crate_name: "SOME NAME",
+    crate_name: "SOME NAME 2",
     category: "category",
     cost_tier: 2,
     age_range: 123,
@@ -571,9 +577,11 @@ const rows = [
 
 export default function CrateTable() {
   const [checked, setChecked] = React.useState([1]);
+  const [editItem, setEditItem] = useState(null);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
+
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
@@ -581,12 +589,14 @@ export default function CrateTable() {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
     setChecked(newChecked);
   };
 
   return (
     <div className="list__container">
+      {editItem && (
+        <EditCrateForm editItem={editItem} setEditItem={setEditItem} />
+      )}
       {/* <List
         style={styles.list}
         dense
@@ -639,6 +649,7 @@ export default function CrateTable() {
               <TableCell align="right">Single</TableCell>
               <TableCell align="right">Content</TableCell>
               <TableCell align="right">Created By</TableCell>
+              <TableCell align="right">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -666,6 +677,19 @@ export default function CrateTable() {
                 </TableCell>
                 <TableCell align="right">{row.crate_contents}</TableCell>
                 <TableCell align="right">{row.created_by}</TableCell>
+                <TableCell align="left">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => {
+                      setEditItem(row);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton aria-label="delete">
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
 

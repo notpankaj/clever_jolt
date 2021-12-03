@@ -23,6 +23,7 @@
   align-items: center;
   border-radius: 8px;
   background: rgb(231, 230, 230);
+  position: relative;
 }
 #add-crate h1 {
   font-size: 1.8rem;
@@ -92,4 +93,12 @@
 .error {
   color: red;
   margin-left: 10px;
+}
+
+/* edit form */
+.closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
 }
