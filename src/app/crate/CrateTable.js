@@ -736,4 +736,7 @@ const styles = {
     top: "0",
     background: "#fff",
   },
+  whiteBg: {
+    background: "url('./solid-whilte.jpg')",
+  },
 };

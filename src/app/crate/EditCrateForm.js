@@ -56,6 +56,8 @@ function EditCrateForm({ editItem, setEditItem }) {
     editItem.is_active ? true : false
   );
   const [crateImage, setCrateImage] = useState(null);
+  const [previewVideo, setPreviewVideo] = useState(null);
+  const [tutorialVideo, setTutorialVideo] = useState(null);
 
   console.log(editItem, "EDIT ITEM");
 
@@ -255,6 +257,32 @@ function EditCrateForm({ editItem, setEditItem }) {
                     onChange={(e) => setIsActiveCrate(e.target.checked)}
                   />
                   <label htmlFor="isActiveCrate">Active Crate</label>
+                </div>
+                {/* short  vido*/}
+                <div className="input-box file-input-box">
+                  <label htmlFor="TutorialVideo">Tutorial Video</label>
+                  <div>
+                    <input
+                      id="TutorialVideo"
+                      type="file"
+                      className="file"
+                      onChange={(e) => setTutorialVideo(e.target.files[0])}
+                      accept="video/mp4,video/x-m4v,video/*"
+                    />
+                  </div>
+                </div>
+                {/* full video*/}
+                <div className="input-box file-input-box">
+                  <label htmlFor="PreviewVideo">Preview Video</label>
+                  <div>
+                    <input
+                      id="PreviewVideo"
+                      type="file"
+                      className="file"
+                      onChange={(e) => setPreviewVideo(e.target.files[0])}
+                      accept="video/mp4,video/x-m4v,video/*"
+                    />
+                  </div>
                 </div>
 
                 <button className="submit_btn" type="submit">

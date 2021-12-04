@@ -8,6 +8,7 @@ import { addCrate } from "./crateSlice/crateSlice";
 import Loader from "../../components/loader/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { reset } from "./crateSlice/crateSlice";
 
 const initialValues = {
   name: "",
@@ -39,12 +40,11 @@ function AddCrateForm({ setIsAddFormOpen }) {
   const [isSingleCrate, setIsSingleCrate] = useState(false);
   const [isActiveCrate, setIsActiveCrate] = useState(false);
   const [crateImage, setCrateImage] = useState(null);
+  const [crateTutorialVideo, setTutorialVideo] = useState(null);
+  const [cratePreviewVideo, setPreviewVideo] = useState(null);
 
   const dispatch = useDispatch();
   const { status, error } = useSelector((state) => state.crates);
-
-  console.log(status, "STATUS");
-  console.log(error, "Error");
 
   useEffect(() => {
     (async function () {
@@ -55,7 +55,10 @@ function AddCrateForm({ setIsAddFormOpen }) {
         toast(error || "Added a new crate");
       }
     })();
-  }, [status]);
+    return () => {
+      dispatch(reset());
+    };
+  }, [status, error]);
 
   const handleClose = (e) => {
     if (e.target.className === "form__container") {
@@ -73,9 +76,12 @@ function AddCrateForm({ setIsAddFormOpen }) {
         is_active: isActiveCrate,
         is_single_crate: isSingleCrate,
         crate_image: crateImage,
+        crate_preview_video: cratePreviewVideo,
+        crate_tutorial_video: crateTutorialVideo,
       })
     );
   };
+
   return (
     <>
       {status === "loading" && <Loader />}
@@ -93,10 +99,13 @@ function AddCrateForm({ setIsAddFormOpen }) {
               autoComplete="off"
             >
               <h1>ADD CRATE</h1>
+
               {/* image*/}
               <div className="input-box file-input-box">
+                <label htmlFor="image">Image</label>
                 <div>
                   <input
+                    id="image"
                     type="file"
                     className="file"
                     onChange={(e) => setCrateImage(e.target.files[0])}
@@ -104,6 +113,7 @@ function AddCrateForm({ setIsAddFormOpen }) {
                   />
                 </div>
               </div>
+
               {/* name*/}
               <div className="input-box">
                 <input
@@ -217,6 +227,32 @@ function AddCrateForm({ setIsAddFormOpen }) {
                   onChange={(e) => setIsActiveCrate(e.target.checked)}
                 />
                 <label htmlFor="isActiveCrate">Active Crate</label>
+              </div>
+              {/* short  vido*/}
+              <div className="input-box file-input-box">
+                <label htmlFor="TutorialVideo">Tutorial Video</label>
+                <div>
+                  <input
+                    id="TutorialVideo"
+                    type="file"
+                    className="file"
+                    onChange={(e) => setTutorialVideo(e.target.files[0])}
+                    accept="video/mp4,video/x-m4v,video/*"
+                  />
+                </div>
+              </div>
+              {/* full video*/}
+              <div className="input-box file-input-box">
+                <label htmlFor="PreviewVideo">Preview Video</label>
+                <div>
+                  <input
+                    id="PreviewVideo"
+                    type="file"
+                    className="file"
+                    onChange={(e) => setPreviewVideo(e.target.files[0])}
+                    accept="video/mp4,video/x-m4v,video/*"
+                  />
+                </div>
               </div>
 
               <button className="submit_btn" type="submit">

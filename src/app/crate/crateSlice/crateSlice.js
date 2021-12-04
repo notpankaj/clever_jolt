@@ -23,6 +23,8 @@ export const addCrate = createAsyncThunk(
     formData.append("price", crate.price);
     formData.append("cost_tier", crate.cost_tier);
     formData.append("is_active", crate.is_active);
+    formData.append("crate_preview_video", crate.crate_preview_video);
+    formData.append("crate_tutorial_video", crate.crate_tutorial_video);
 
     // return await fetch("http://3.93.232.147:9000/addUpdateCrate", {
     //   method: "post",
@@ -42,6 +44,12 @@ const cratesSlice = createSlice({
     crates: [],
     status: null,
     error: null,
+  },
+  reducers: {
+    reset: (state) => {
+      state.error = null;
+      state.status = null;
+    },
   },
   extraReducers: {
     [getCrates.pending]: (state, action) => {
@@ -71,5 +79,5 @@ const cratesSlice = createSlice({
     },
   },
 });
-
+export const { reset } = cratesSlice.actions;
 export default cratesSlice.reducer;
