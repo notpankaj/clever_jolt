@@ -1,16 +1,21 @@
+import React, { useState } from "react";
 import "./student.css";
 import StudentHeader from "./StudentHeader";
 import Table from "./Table";
+import StudentGraphicalData from "./StudentGraphicalData";
+
 function Student() {
+  const [tableTab, setTableTab] = useState(true);
+
   return (
     <>
       <div className="student__container">
-        <StudentHeader />
+        <StudentHeader setTableTab={setTableTab} />
         <div id="row">
-          <strong>All Student</strong>
-          <span>Non Subscribed ones</span>
+          <strong onClick={() => setTableTab(true)}>All Student</strong>
+          <span onClick={() => setTableTab(false)}>Non Subscribed ones</span>
         </div>
-        <Table />
+        {tableTab ? <Table /> : <StudentGraphicalData />}
       </div>
     </>
   );

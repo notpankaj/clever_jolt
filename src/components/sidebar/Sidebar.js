@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 
 function Sidebar() {
   const navigate = useNavigate();
 
+  const [isFullSideBar, setIsFullSideBar] = useState(true);
   const [mobileNavItems, setMobileNavItems] = React.useState("none");
 
   const closeMobileNav = () => {
@@ -25,9 +26,13 @@ function Sidebar() {
 
   return (
     <>
-      <nav className="sidebar">
+      <nav className={`sidebar ${isFullSideBar ? null : "shrink"}`}>
         <div className="sidebar__header">
           <h4>Clever jolt</h4>
+          <span onClick={() => setIsFullSideBar(!isFullSideBar)}>
+            {" "}
+            {isFullSideBar ? "✖" : "☰"}{" "}
+          </span>
         </div>
         <ul className="sidebar__items">
           <NavLink
@@ -38,7 +43,7 @@ function Sidebar() {
               <div className="sidebar__icon">
                 <box-icon name="home"></box-icon>
               </div>
-              Home
+              <span>Home</span>
             </li>
           </NavLink>
 
@@ -47,7 +52,7 @@ function Sidebar() {
               <div className="sidebar__icon">
                 <box-icon name="edit-alt"></box-icon>
               </div>
-              Crate
+              <span>Crate</span>
             </li>
           </NavLink>
           <NavLink to="/student">
@@ -55,14 +60,14 @@ function Sidebar() {
               <div className="sidebar__icon">
                 <box-icon name="book-reader"></box-icon>
               </div>
-              Student
+              <span>Student</span>
             </li>
           </NavLink>
           <li className="sidebar__item" onClick={handleLogout}>
             <div className="sidebar__icon">
               <box-icon name="exit"></box-icon>
             </div>
-            Logout
+            <span>Logout</span>
           </li>
         </ul>
       </nav>

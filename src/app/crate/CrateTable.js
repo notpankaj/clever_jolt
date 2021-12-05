@@ -58,6 +58,7 @@ const rows = [
     date_added: "2021-12-02",
     date_modified: "2021-12-02",
     is_active: true,
+    price: 100,
     is_single_crate: false,
   },
   {
@@ -645,6 +646,7 @@ export default function CrateTable() {
               <TableCell align="right">Category</TableCell>
               <TableCell align="right">Age</TableCell>
               <TableCell align="right">Tier</TableCell>
+              <TableCell align="right">Price</TableCell>
               <TableCell align="right">Active</TableCell>
               <TableCell align="right">Single</TableCell>
               <TableCell align="right">Content</TableCell>
@@ -669,6 +671,7 @@ export default function CrateTable() {
                 <TableCell align="right">{row.category}</TableCell>
                 <TableCell align="right">{row.age_range}</TableCell>
                 <TableCell align="right">{row.cost_tier}</TableCell>
+                <TableCell align="right">{row.price}</TableCell>
                 <TableCell align="right">
                   {row.is_active ? "True" : "False"}
                 </TableCell>

@@ -97,7 +97,12 @@ function AddCrateForm({ setIsAddFormOpen }) {
               autoComplete="off"
             >
               <h1>ADD CRATE</h1>
-
+              <span
+                onClick={() => setIsAddFormOpen(false)}
+                className="closeBtn"
+              >
+                close
+              </span>
               {/* image*/}
               {/* <div className="input-box file-input-box">
                 <label htmlFor="image">Image</label>

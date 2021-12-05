@@ -44,7 +44,7 @@ function EditCrateForm({ editItem, setEditItem }) {
     contents: editItem.crate_contents || "",
     category: editItem.category || "",
     is_single_crate: "",
-    price: "",
+    price: editItem.price || "",
     cost_tier: editItem.cost_tier || "",
     age_range: editItem.age_range || "",
     is_active: "",
@@ -60,20 +60,6 @@ function EditCrateForm({ editItem, setEditItem }) {
   const [tutorialVideo, setTutorialVideo] = useState(null);
 
   console.log(editItem, "EDIT ITEM");
-
-  useEffect(() => {
-    // function populateFiled() {
-    //   initialValues.name = editItem.crate_name;
-    //   initialValues.crate_description = editItem.crate_description;
-    //   // image = "";
-    //   initialValues.contents = editItem.crate_contents;
-    //   initialValues.category = editItem.category;
-    //   // price = editItem.;
-    //   initialValues.cost_tier = editItem.cost_tier;
-    //   initialValues.age_range = editItem.age_range;
-    // }
-    // populateFiled();
-  }, [editItem]);
 
   const dispatch = useDispatch();
   const { status, error } = useSelector((state) => state.crates);
@@ -167,6 +153,7 @@ function EditCrateForm({ editItem, setEditItem }) {
                 </div> */}
 
                 <TextField
+                  style={styles.InputContainer}
                   label="Title"
                   // variant="filled"
                   fullWidth
@@ -191,6 +178,7 @@ function EditCrateForm({ editItem, setEditItem }) {
                 </div> */}
 
                 <TextField
+                  style={styles.InputContainer}
                   label="Description"
                   // variant="filled"
                   fullWidth
@@ -252,10 +240,11 @@ function EditCrateForm({ editItem, setEditItem }) {
                   )}
                 </div> */}
                 <TextField
+                  style={styles.InputContainer}
                   label="Contents"
                   // variant="filled"
                   fullWidth
-                  {...formik.getFieldProps("category")}
+                  {...formik.getFieldProps("contents")}
                   error={formik.touched.contents && formik.errors.contents}
                   helperText={formik.touched.contents && formik.errors.contents}
                 />
@@ -272,6 +261,7 @@ function EditCrateForm({ editItem, setEditItem }) {
                   )}
                 </div> */}
                 <TextField
+                  style={styles.InputContainer}
                   label="Category"
                   // variant="filled"
                   fullWidth
@@ -292,6 +282,7 @@ function EditCrateForm({ editItem, setEditItem }) {
                   )}
                 </div> */}
                 <TextField
+                  style={styles.InputContainer}
                   label="Price"
                   // variant="filled"
                   fullWidth
@@ -313,6 +304,7 @@ function EditCrateForm({ editItem, setEditItem }) {
                 </div> */}
 
                 <TextField
+                  style={styles.InputContainer}
                   label="Tier"
                   // variant="filled"
                   fullWidth
@@ -336,6 +328,7 @@ function EditCrateForm({ editItem, setEditItem }) {
                 </div> */}
 
                 <TextField
+                  style={styles.InputContainer}
                   label="Age"
                   // variant="filled"
                   fullWidth
@@ -356,11 +349,23 @@ function EditCrateForm({ editItem, setEditItem }) {
                   />
                   <label htmlFor="isActiveCrate">Active Crate</label>
                 </div> */}
-                <div style={styles.CheckboxContainer}>
+                {/* <div style={styles.CheckboxContainer}>
                   <FormControlLabel
                     fullWidth
                     control={
                       <CheckBox
+                        checked={isActiveCrate}
+                        onChange={(e) => setIsActiveCrate(e.target.checked)}
+                      />
+                    }
+                    label="Active Crate"
+                  />
+                </div> */}
+                <div style={styles.CheckboxContainer}>
+                  <FormControlLabel
+                    fullWidth
+                    control={
+                      <Checkbox
                         checked={isActiveCrate}
                         onChange={(e) => setIsActiveCrate(e.target.checked)}
                       />
