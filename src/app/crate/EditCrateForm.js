@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import "./crateForm.css";
-import { Checkbox } from "@mui/material";
+import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { addCrate } from "./crateSlice/crateSlice";
 import Loader from "../../components/loader/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { TryRounded } from "@mui/icons-material";
+import { CheckBox, TryRounded } from "@mui/icons-material";
 
 // const initialValues = {
 //   name: "",
@@ -50,7 +50,7 @@ function EditCrateForm({ editItem, setEditItem }) {
     is_active: "",
   };
   const [isSingleCrate, setIsSingleCrate] = useState(
-    editItem.is_single_crate ? TryRounded : false
+    editItem.is_single_crate ? true : false
   );
   const [isActiveCrate, setIsActiveCrate] = useState(
     editItem.is_active ? true : false
@@ -134,7 +134,7 @@ function EditCrateForm({ editItem, setEditItem }) {
                   close
                 </span>
                 {/* image*/}
-                <div className="input-box file-input-box">
+                {/* <div className="input-box file-input-box">
                   <div>
                     <input
                       type="file"
@@ -143,9 +143,19 @@ function EditCrateForm({ editItem, setEditItem }) {
                       accept="image/*"
                     />
                   </div>
+                </div> */}
+
+                <div className="fileUploadContainer">
+                  <span>Image</span>
+                  <TextField
+                    fullWidth
+                    type="file"
+                    onChange={(e) => setCrateImage(e.target.files[0])}
+                    accept="image/*"
+                  />
                 </div>
                 {/* name*/}
-                <div className="input-box">
+                {/* <div className="input-box">
                   <input
                     type="text"
                     placeholder="Title"
@@ -154,22 +164,47 @@ function EditCrateForm({ editItem, setEditItem }) {
                   {formik.touched.name && formik.errors.name && (
                     <span className="error">{formik.errors.name}</span>
                   )}
-                </div>
+                </div> */}
+
+                <TextField
+                  label="Title"
+                  // variant="filled"
+                  fullWidth
+                  {...formik.getFieldProps("name")}
+                  error={formik.touched.name && formik.errors.name}
+                  helperText={formik.touched.name && formik.errors.name}
+                />
+
                 {/* description*/}
-                <div className="input-box">
+                {/* <div className="input-box">
                   <input
                     type="text"
                     placeholder="description"
                     {...formik.getFieldProps("crate_description")}
                   />
 
-                  {formik.touched.crate_description &&
-                    formik.errors.crate_description && (
+                  {formik.touched.crate_description && formik.errors.crate_description && (
                       <span className="error">
                         {formik.errors.crate_description}
                       </span>
                     )}
-                </div>
+                </div> */}
+
+                <TextField
+                  label="Description"
+                  // variant="filled"
+                  fullWidth
+                  {...formik.getFieldProps("crate_description")}
+                  error={
+                    formik.touched.crate_description &&
+                    formik.errors.crate_description
+                  }
+                  helperText={
+                    formik.touched.crate_description &&
+                    formik.errors.crate_description
+                  }
+                />
+
                 {/* <div className="input-box">
               <select defaultValue={"DEFAULT"} name="crate" id="cars">
                 <option value="DEFAULT" disabled>
@@ -182,7 +217,7 @@ function EditCrateForm({ editItem, setEditItem }) {
             </div> */}
 
                 {/* isSingleCrate */}
-                <div className="input-box mui">
+                {/* <div className="input-box mui">
                   <Checkbox
                     id="isSingleCrate"
                     inputProps={{ "aria-label": "controlled" }}
@@ -190,10 +225,23 @@ function EditCrateForm({ editItem, setEditItem }) {
                     onChange={(e) => setIsSingleCrate(e.target.checked)}
                   />
                   <label htmlFor="isSingleCrate">Single Crate</label>
+                </div> */}
+
+                <div style={styles.CheckboxContainer}>
+                  <FormControlLabel
+                    fullWidth
+                    control={
+                      <Checkbox
+                        checked={isSingleCrate}
+                        onChange={(e) => setIsSingleCrate(e.target.checked)}
+                      />
+                    }
+                    label="Single Crate"
+                  />
                 </div>
 
                 {/* contents */}
-                <div className="input-box">
+                {/* <div className="input-box">
                   <input
                     type="text"
                     placeholder="Contents"
@@ -202,10 +250,18 @@ function EditCrateForm({ editItem, setEditItem }) {
                   {formik.touched.contents && formik.errors.contents && (
                     <span className="error">{formik.errors.contents}</span>
                   )}
-                </div>
+                </div> */}
+                <TextField
+                  label="Contents"
+                  // variant="filled"
+                  fullWidth
+                  {...formik.getFieldProps("category")}
+                  error={formik.touched.contents && formik.errors.contents}
+                  helperText={formik.touched.contents && formik.errors.contents}
+                />
 
                 {/* category */}
-                <div className="input-box">
+                {/* <div className="input-box">
                   <input
                     type="text"
                     placeholder="Category"
@@ -214,9 +270,18 @@ function EditCrateForm({ editItem, setEditItem }) {
                   {formik.touched.category && formik.errors.category && (
                     <span className="error">{formik.errors.category}</span>
                   )}
-                </div>
+                </div> */}
+                <TextField
+                  label="Category"
+                  // variant="filled"
+                  fullWidth
+                  {...formik.getFieldProps("category")}
+                  error={formik.touched.category && formik.errors.category}
+                  helperText={formik.touched.category && formik.errors.category}
+                />
+
                 {/* price 100 */}
-                <div className="input-box">
+                {/* <div className="input-box">
                   <input
                     type="text"
                     placeholder="Price"
@@ -225,9 +290,18 @@ function EditCrateForm({ editItem, setEditItem }) {
                   {formik.touched.price && formik.errors.price && (
                     <span className="error">{formik.errors.price}</span>
                   )}
-                </div>
+                </div> */}
+                <TextField
+                  label="Price"
+                  // variant="filled"
+                  fullWidth
+                  {...formik.getFieldProps("price")}
+                  error={formik.touched.price && formik.errors.price}
+                  helperText={formik.touched.price && formik.errors.price}
+                />
+
                 {/* cost_tier 1 */}
-                <div className="input-box">
+                {/* <div className="input-box">
                   <input
                     type="text"
                     placeholder="Tier"
@@ -236,9 +310,21 @@ function EditCrateForm({ editItem, setEditItem }) {
                   {formik.touched.cost_tier && formik.errors.cost_tier && (
                     <span className="error">{formik.errors.cost_tier}</span>
                   )}
-                </div>
+                </div> */}
+
+                <TextField
+                  label="Tier"
+                  // variant="filled"
+                  fullWidth
+                  {...formik.getFieldProps("cost_tier")}
+                  error={formik.touched.cost_tier && formik.errors.cost_tier}
+                  helperText={
+                    formik.touched.age_range && formik.errors.age_range
+                  }
+                />
+
                 {/* age_range 12 */}
-                <div className="input-box">
+                {/* <div className="input-box">
                   <input
                     type="text"
                     placeholder="Age"
@@ -247,9 +333,21 @@ function EditCrateForm({ editItem, setEditItem }) {
                   {formik.touched.age_range && formik.errors.age_range && (
                     <span className="error">{formik.errors.age_range}</span>
                   )}
-                </div>
+                </div> */}
+
+                <TextField
+                  label="Age"
+                  // variant="filled"
+                  fullWidth
+                  {...formik.getFieldProps("age_range")}
+                  error={formik.touched.age_range && formik.errors.age_range}
+                  helperText={
+                    formik.touched.age_range && formik.errors.age_range
+                  }
+                />
+
                 {/* is_active true */}
-                <div className="input-box mui">
+                {/* <div className="input-box mui">
                   <Checkbox
                     id="isActiveCrate"
                     inputProps={{ "aria-label": "controlled" }}
@@ -257,8 +355,22 @@ function EditCrateForm({ editItem, setEditItem }) {
                     onChange={(e) => setIsActiveCrate(e.target.checked)}
                   />
                   <label htmlFor="isActiveCrate">Active Crate</label>
+                </div> */}
+                <div style={styles.CheckboxContainer}>
+                  <FormControlLabel
+                    fullWidth
+                    control={
+                      <CheckBox
+                        checked={isActiveCrate}
+                        onChange={(e) => setIsActiveCrate(e.target.checked)}
+                      />
+                    }
+                    label="Active Crate"
+                  />
                 </div>
+
                 {/* short  vido*/}
+                {/* 
                 <div className="input-box file-input-box">
                   <label htmlFor="TutorialVideo">Tutorial Video</label>
                   <div>
@@ -270,9 +382,19 @@ function EditCrateForm({ editItem, setEditItem }) {
                       accept="video/mp4,video/x-m4v,video/*"
                     />
                   </div>
-                </div>
+                </div> */}
                 {/* full video*/}
-                <div className="input-box file-input-box">
+
+                <div className="fileUploadContainer">
+                  <span>Tutorial Video</span>
+                  <TextField
+                    fullWidth
+                    type="file"
+                    // onChange={(e) => setTutorialVideo(e.target.files[0])}
+                    accept="video/mp4,video/x-m4v,video/*"
+                  />
+                </div>
+                {/* <div className="input-box file-input-box">
                   <label htmlFor="PreviewVideo">Preview Video</label>
                   <div>
                     <input
@@ -283,6 +405,16 @@ function EditCrateForm({ editItem, setEditItem }) {
                       accept="video/mp4,video/x-m4v,video/*"
                     />
                   </div>
+                </div> */}
+
+                <div className="fileUploadContainer">
+                  <span>Preview Video</span>
+                  <TextField
+                    fullWidth
+                    type="file"
+                    // onChange={(e) => setPreviewVideo(e.target.files[0])}
+                    accept="video/mp4,video/x-m4v,video/*"
+                  />
                 </div>
 
                 <button className="submit_btn" type="submit">
@@ -298,3 +430,14 @@ function EditCrateForm({ editItem, setEditItem }) {
 }
 
 export default EditCrateForm;
+const styles = {
+  CheckboxContainer: {
+    padding: "0 10px",
+    width: "100%",
+    margin: "5px 0",
+    border: "1px solid #00000038",
+    borderRadius: "5px",
+    padding: "6px 10px",
+  },
+  InputContainer: { margin: "10px 0" },
+};

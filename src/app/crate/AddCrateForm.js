@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import "./crateForm.css";
-import { Checkbox } from "@mui/material";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { addCrate } from "./crateSlice/crateSlice";
 import Loader from "../../components/loader/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { reset } from "./crateSlice/crateSlice";
+import TextField from "@mui/material/TextField";
 
 const initialValues = {
   name: "",
@@ -66,9 +67,6 @@ function AddCrateForm({ setIsAddFormOpen }) {
     }
   };
 
-  if (error) {
-    console.log(error);
-  }
   const handleSubmit = (values, { setSubmitting }) => {
     dispatch(
       addCrate({
@@ -101,7 +99,7 @@ function AddCrateForm({ setIsAddFormOpen }) {
               <h1>ADD CRATE</h1>
 
               {/* image*/}
-              <div className="input-box file-input-box">
+              {/* <div className="input-box file-input-box">
                 <label htmlFor="image">Image</label>
                 <div>
                   <input
@@ -112,9 +110,34 @@ function AddCrateForm({ setIsAddFormOpen }) {
                     accept="image/*"
                   />
                 </div>
+              </div> */}
+
+              {/* Image */}
+              <div className="fileUploadContainer">
+                <span>image</span>
+                <TextField
+                  fullWidth
+                  type="file"
+                  onChange={(e) => setCrateImage(e.target.files[0])}
+                  accept="image/*"
+                />
               </div>
 
-              {/* name*/}
+              {/* name */}
+              <TextField
+                style={styles.InputContainer}
+                label="Name"
+                // variant="filled"
+                fullWidth
+                {...formik.getFieldProps("name")}
+                error={formik.touched.name && formik.errors.name}
+                helperText={formik.touched.name && formik.errors.name}
+              />
+
+              {/* {formik.touched.name && formik.errors.name && (
+                <span className="error">{formik.errors.name}</span>
+              )} */}
+              {/* name
               <div className="input-box">
                 <input
                   type="text"
@@ -124,9 +147,9 @@ function AddCrateForm({ setIsAddFormOpen }) {
                 {formik.touched.name && formik.errors.name && (
                   <span className="error">{formik.errors.name}</span>
                 )}
-              </div>
+              </div> */}
               {/* description*/}
-              <div className="input-box">
+              {/* <div className="input-box">
                 <input
                   type="text"
                   placeholder="description"
@@ -139,7 +162,24 @@ function AddCrateForm({ setIsAddFormOpen }) {
                       {formik.errors.crate_description}
                     </span>
                   )}
-              </div>
+              </div> */}
+
+              <TextField
+                style={styles.InputContainer}
+                label="Description"
+                // variant="filled"
+                fullWidth
+                {...formik.getFieldProps("crate_description")}
+                error={
+                  formik.touched.crate_description &&
+                  formik.errors.crate_description
+                }
+                helperText={
+                  formik.touched.crate_description &&
+                  formik.errors.crate_description
+                }
+              />
+
               {/* <div className="input-box">
               <select defaultValue={"DEFAULT"} name="crate" id="cars">
                 <option value="DEFAULT" disabled>
@@ -152,7 +192,7 @@ function AddCrateForm({ setIsAddFormOpen }) {
             </div> */}
 
               {/* isSingleCrate */}
-              <div className="input-box mui">
+              {/* <div className="input-box mui">
                 <Checkbox
                   id="isSingleCrate"
                   inputProps={{ "aria-label": "controlled" }}
@@ -160,10 +200,23 @@ function AddCrateForm({ setIsAddFormOpen }) {
                   onChange={(e) => setIsSingleCrate(e.target.checked)}
                 />
                 <label htmlFor="isSingleCrate">Single Crate</label>
+              </div> */}
+
+              <div style={styles.CheckboxContainer}>
+                <FormControlLabel
+                  fullWidth
+                  control={
+                    <Checkbox
+                      checked={isSingleCrate}
+                      onChange={(e) => setIsSingleCrate(e.target.checked)}
+                    />
+                  }
+                  label="Single Crate"
+                />
               </div>
 
               {/* contents */}
-              <div className="input-box">
+              {/* <div className="input-box">
                 <input
                   type="text"
                   placeholder="Contents"
@@ -172,10 +225,20 @@ function AddCrateForm({ setIsAddFormOpen }) {
                 {formik.touched.contents && formik.errors.contents && (
                   <span className="error">{formik.errors.contents}</span>
                 )}
-              </div>
+              </div> */}
+
+              <TextField
+                style={styles.InputContainer}
+                label="Contents"
+                // variant="filled"
+                fullWidth
+                {...formik.getFieldProps("contents")}
+                error={formik.touched.contents && formik.errors.contents}
+                helperText={formik.touched.contents && formik.errors.contents}
+              />
 
               {/* category */}
-              <div className="input-box">
+              {/* <div className="input-box">
                 <input
                   type="text"
                   placeholder="Category"
@@ -184,9 +247,20 @@ function AddCrateForm({ setIsAddFormOpen }) {
                 {formik.touched.category && formik.errors.category && (
                   <span className="error">{formik.errors.category}</span>
                 )}
-              </div>
+              </div> */}
+
+              <TextField
+                style={styles.InputContainer}
+                label="Category"
+                // variant="filled"
+                fullWidth
+                {...formik.getFieldProps("category")}
+                error={formik.touched.category && formik.errors.category}
+                helperText={formik.touched.category && formik.errors.category}
+              />
+
               {/* price 100 */}
-              <div className="input-box">
+              {/* <div className="input-box">
                 <input
                   type="text"
                   placeholder="Price"
@@ -195,9 +269,20 @@ function AddCrateForm({ setIsAddFormOpen }) {
                 {formik.touched.price && formik.errors.price && (
                   <span className="error">{formik.errors.price}</span>
                 )}
-              </div>
+              </div> */}
+
+              <TextField
+                style={styles.InputContainer}
+                label="Price"
+                // variant="filled"
+                fullWidth
+                {...formik.getFieldProps("price")}
+                error={formik.touched.price && formik.errors.price}
+                helperText={formik.touched.price && formik.errors.price}
+              />
+
               {/* cost_tier 1 */}
-              <div className="input-box">
+              {/* <div className="input-box">
                 <input
                   type="text"
                   placeholder="Tier"
@@ -206,9 +291,20 @@ function AddCrateForm({ setIsAddFormOpen }) {
                 {formik.touched.cost_tier && formik.errors.cost_tier && (
                   <span className="error">{formik.errors.cost_tier}</span>
                 )}
-              </div>
+              </div> */}
+
+              <TextField
+                style={styles.InputContainer}
+                label="Tier"
+                // variant="filled"
+                fullWidth
+                {...formik.getFieldProps("cost_tier")}
+                error={formik.touched.cost_tier && formik.errors.cost_tier}
+                helperText={formik.touched.cost_tier && formik.errors.cost_tier}
+              />
+
               {/* age_range 12 */}
-              <div className="input-box">
+              {/* <div className="input-box">
                 <input
                   type="text"
                   placeholder="Age"
@@ -217,9 +313,20 @@ function AddCrateForm({ setIsAddFormOpen }) {
                 {formik.touched.age_range && formik.errors.age_range && (
                   <span className="error">{formik.errors.age_range}</span>
                 )}
-              </div>
+              </div> */}
+
+              <TextField
+                style={styles.InputContainer}
+                label="Age"
+                // variant="filled"
+                fullWidth
+                {...formik.getFieldProps("age_range")}
+                error={formik.touched.age_range && formik.errors.age_range}
+                helperText={formik.touched.age_range && formik.errors.age_range}
+              />
+
               {/* is_active true */}
-              <div className="input-box mui">
+              {/* <div className="input-box mui">
                 <Checkbox
                   id="isActiveCrate"
                   inputProps={{ "aria-label": "controlled" }}
@@ -227,9 +334,23 @@ function AddCrateForm({ setIsAddFormOpen }) {
                   onChange={(e) => setIsActiveCrate(e.target.checked)}
                 />
                 <label htmlFor="isActiveCrate">Active Crate</label>
+              </div> */}
+
+              <div style={styles.CheckboxContainer}>
+                <FormControlLabel
+                  fullWidth
+                  control={
+                    <Checkbox
+                      checked={isActiveCrate}
+                      onChange={(e) => setIsActiveCrate(e.target.checked)}
+                    />
+                  }
+                  label="Active Crate"
+                />
               </div>
+
               {/* short  vido*/}
-              <div className="input-box file-input-box">
+              {/* <div className="input-box file-input-box">
                 <label htmlFor="TutorialVideo">Tutorial Video</label>
                 <div>
                   <input
@@ -240,9 +361,20 @@ function AddCrateForm({ setIsAddFormOpen }) {
                     accept="video/mp4,video/x-m4v,video/*"
                   />
                 </div>
+              </div> */}
+
+              <div className="fileUploadContainer">
+                <span>Tutorial Video</span>
+                <TextField
+                  fullWidth
+                  type="file"
+                  onChange={(e) => setTutorialVideo(e.target.files[0])}
+                  accept="video/mp4,video/x-m4v,video/*"
+                />
               </div>
+
               {/* full video*/}
-              <div className="input-box file-input-box">
+              {/* <div className="input-box file-input-box">
                 <label htmlFor="PreviewVideo">Preview Video</label>
                 <div>
                   <input
@@ -253,6 +385,16 @@ function AddCrateForm({ setIsAddFormOpen }) {
                     accept="video/mp4,video/x-m4v,video/*"
                   />
                 </div>
+              </div> */}
+
+              <div className="fileUploadContainer">
+                <span>Preview Video</span>
+                <TextField
+                  fullWidth
+                  type="file"
+                  onChange={(e) => setPreviewVideo(e.target.files[0])}
+                  accept="video/mp4,video/x-m4v,video/*"
+                />
               </div>
 
               <button className="submit_btn" type="submit">
@@ -267,3 +409,15 @@ function AddCrateForm({ setIsAddFormOpen }) {
 }
 
 export default AddCrateForm;
+
+const styles = {
+  CheckboxContainer: {
+    padding: "0 10px",
+    width: "100%",
+    margin: "5px 0",
+    border: "1px solid #00000038",
+    borderRadius: "5px",
+    padding: "6px 10px",
+  },
+  InputContainer: { margin: "10px 0" },
+};
