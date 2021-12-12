@@ -1,18 +1,8 @@
-import React, { useState } from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Checkbox from "@mui/material/Checkbox";
-import Avatar from "@mui/material/Avatar";
-
+import React, { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-
 import EditCrateForm from "./EditCrateForm";
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -20,6 +10,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { getCrates, reset } from "./crateSlice/crateSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "../../components/loader/Loader";
 
 const rows = [
   {
@@ -579,6 +574,26 @@ const rows = [
 export default function CrateTable() {
   const [checked, setChecked] = React.useState([1]);
   const [editItem, setEditItem] = useState(null);
+  const [crateList, setCrateList] = useState([]);
+  const dispatch = useDispatch();
+
+  const { crates, status, error } = useSelector((state) => state.crates);
+
+  console.log({ crates, status, error });
+
+  useEffect(() => {
+    dispatch(getCrates());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (status === "failed") {
+      toast(error || "failed to load data!!");
+      dispatch(reset());
+    }
+    if (status === "success") {
+      dispatch(reset());
+    }
+  }, [status]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -593,48 +608,14 @@ export default function CrateTable() {
     setChecked(newChecked);
   };
 
+  console.log("list", crateList);
   return (
     <div className="list__container">
+      {status === "loading" && <Loader />}
+      <ToastContainer />
       {editItem && (
         <EditCrateForm editItem={editItem} setEditItem={setEditItem} />
       )}
-      {/* <List
-        style={styles.list}
-        dense
-        sx={{ maxWidth: 360, bgcolor: "background.paper" }}
-      >
-        <h4 style={styles.listHeading}>Crates</h4>
-        {[0, 1, 2, 3].map((value) => {
-          const labelId = `checkbox-list-secondary-label-${value}`;
-          return (
-            <ListItem
-              key={value}
-              secondaryAction={
-                <Checkbox
-                  style={{ left: "-300px" }}
-                  edge="end"
-                  onChange={handleToggle(value)}
-                  checked={checked.indexOf(value) !== -1}
-                  inputProps={{ "aria-labelledby": labelId }}
-                />
-              }
-              disablePadding
-            >
-              <ListItemButton
-                style={{ display: "flex", flexDirection: "row-reverse" }}
-              >
-                <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
-                <ListItemAvatar>
-                  <Avatar
-                    alt={`Avatar n°${value + 1}`}
-                    src={`/static/images/avatar/${value + 1}.jpg`}
-                  />
-                </ListItemAvatar>
-              </ListItemButton>
-            </ListItem>
-          );
-        })}
-      </List> */}
 
       <TableContainer component={Paper} style={{ maxHeight: "75vh" }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -655,61 +636,57 @@ export default function CrateTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                style={styles.tableRow}
-                key={row.crate_id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  <input type="checkbox" />
-                </TableCell>
-                <TableCell align="right">
-                  <img src={row.crate_image} style={styles.tableImage} />
-                </TableCell>
-                <TableCell align="right">{row.crate_name}</TableCell>
-                <TableCell align="right">{row.category}</TableCell>
-                <TableCell align="right">{row.age_range}</TableCell>
-                <TableCell align="right">{row.cost_tier}</TableCell>
-                <TableCell align="right">{row.price}</TableCell>
-                <TableCell align="right">
-                  {row.is_active ? "True" : "False"}
-                </TableCell>
-                <TableCell align="right">
-                  {row.is_single_crate ? "True" : "False"}
-                </TableCell>
-                <TableCell align="right">{row.crate_contents}</TableCell>
-                <TableCell align="right">{row.created_by}</TableCell>
-                <TableCell align="left">
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => {
-                      setEditItem(row);
-                    }}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton aria-label="delete">
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
+            {crates?.crates &&
+              crates?.crates.map((row) => {
+                let c = row.row_to_json;
 
-            {/* {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
-              </TableRow>
-            ))} */}
+                return (
+                  <TableRow
+                    style={styles.tableRow}
+                    key={c.crate_id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      <input type="checkbox" />
+                    </TableCell>
+                    <TableCell align="right">
+                      <img
+                        src={c.crate_image}
+                        style={styles.tableImage}
+                        alt={c.crate_name}
+                      />
+                    </TableCell>
+                    <TableCell align="right">{c.crate_name}</TableCell>
+                    <TableCell align="right">{c.category}</TableCell>
+                    <TableCell align="right">{c.age_range}</TableCell>
+                    <TableCell align="right">{c.cost_tier}</TableCell>
+                    <TableCell align="right">{c.price}</TableCell>
+                    <TableCell align="right">
+                      {c.is_active ? "True" : "False"}
+                    </TableCell>
+                    <TableCell align="right">
+                      {c.is_single_crate ? "True" : "False"}
+                    </TableCell>
+                    <TableCell align="right">{c.crate_contents}</TableCell>
+                    <TableCell align="right">
+                      {c?.created_by?.first_name || "N/A"}
+                    </TableCell>
+                    <TableCell align="left">
+                      <IconButton
+                        aria-label="delete"
+                        onClick={() => {
+                          setEditItem(c);
+                        }}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton aria-label="delete">
+                        <DeleteIcon onClick={() => alert(c.crate_id)} />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
       </TableContainer>

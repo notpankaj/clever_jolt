@@ -4,12 +4,13 @@ import * as Yup from "yup";
 import "./crateForm.css";
 import { Checkbox, FormControlLabel } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { addCrate } from "./crateSlice/crateSlice";
+import { addCrate, getCrates } from "./crateSlice/crateSlice";
 import Loader from "../../components/loader/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { reset } from "./crateSlice/crateSlice";
 import TextField from "@mui/material/TextField";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const initialValues = {
   name: "",
@@ -53,7 +54,9 @@ function AddCrateForm({ setIsAddFormOpen }) {
         toast(error || "failed");
       }
       if (status === "success") {
-        toast(error || "Added a new crate");
+        toast("Added a new crate");
+        dispatch(getCrates());
+        setIsAddFormOpen(false);
       }
     })();
     return () => {
